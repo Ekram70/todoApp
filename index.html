@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- Custom css -->
+    <link rel="stylesheet" href="style.css" />
+    <title>Change the Name</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="todo-container">
+        <h1 class="heading">ToDo App</h1>
+        <div class="todo">
+          <input
+            type="text"
+            class="todo-input"
+            placeholder="task to be done.."
+            id="todo-input"
+          />
+          <button class="todo-btn" id="todo-btn">Add</button>
+        </div>
+        <ol class="todo-list" id="todo-list">
+          <li class="todo-item">
+            <span class="number">01</span>
+            <div class="todo-text">
+             I will wake up at 8 in the morning I
+              will wake up at 8 in the mornin I will wake up at 8 in the
+              morning
+            </div>
+            <span class="edit" title="edit"
+                ><i class="fa-solid fa-pencil"></i> </span
+              ><span class="completed" title="complete"
+                ><i class="fa-solid fa-check"></i>
+              </span>
+          </li>
+          <li class="todo-item">
+            <span class="number">02</span> <div class="todo-text">
+              I will wake up at 8 in the morning I
+               will wake up at 8 in the mornin I will wake up at 8 in the
+               morning
+             </div>
+             <span
+              class="edit"
+              title="edit"
+              ><i class="fa-solid fa-pencil"></i> </span
+            ><span class="completed" title="complete"
+              ><i class="fa-solid fa-check"></i>
+            </span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="todo-completed">
+        <h1 class="heading">Completed</h1>
+        <ol class="todo-list">
+          <li class="todo-item">
+            <span class="number">01</span> <div class="todo-text">
+              I will wake up at 8 in the morning I
+               will wake up at 8 in the mornin I will wake up at 8 in the
+               morning
+             </div>
+             <span class="undo" title="undo"
+              ><i class="fas fa-hand-point-up"></i> </span
+            ><span class="completed" title="delete"
+              ><i class="fas fa-trash"></i>
+            </span>
+          </li>
+          <li class="todo-item">
+            <span class="number">02</span> <div class="todo-text">
+              I will wake up at 8 in the morning I
+               will wake up at 8 in the mornin I will wake up at 8 in the
+               morning
+             </div>
+             <span
+              class="undo"
+              title="undo"
+              ><i class="fas fa-hand-point-up"></i></span
+            ><span class="completed" title="delete"
+              ><i class="fas fa-trash"></i>
+            </span>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Custom Javascript -->
+    <script src="app.js"></script>
+  </body>
+</html>
