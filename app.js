@@ -3,11 +3,16 @@ const addBtn = document.getElementById("todo-btn");
 const todoList = document.getElementById("todo-list");
 const completeList = document.getElementById("completed-list");
 
+let editBtns = document.querySelectorAll(".edit");
 let checkBtns = document.querySelectorAll(".completed");
 let undoBtns = document.querySelectorAll(".undo");
 let deleteBtns = document.querySelectorAll(".deleted");
 
 addBtn.addEventListener("click", addToList);
+
+editBtns.forEach((btn) => {
+  btn.addEventListener("click", editText);
+});
 
 checkBtns.forEach((btn) => {
   btn.addEventListener("click", addToComplete);
@@ -43,10 +48,31 @@ function addToList() {
     `;
   }
 
+  todoInput.value = "";
+
   let checkBtns = document.querySelectorAll(".completed");
   checkBtns.forEach((btn) => {
     btn.addEventListener("click", addToComplete);
   });
+
+  let editBtns = document.querySelectorAll(".edit");
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", editText);
+  });
+}
+
+function editText() {
+  let parent = this.parentElement;
+  let icon = this.firstElementChild;
+  let textElem = parent.querySelector(".todo-text");
+  if (textElem.innerText) {
+    icon.className == "fa-solid fa-pencil"
+      ? (icon.className = "fa-solid fa-floppy-disk")
+      : (icon.className = "fa-solid fa-pencil");
+
+    textElem.classList.toggle("editable");
+    textElem.toggleAttribute("contenteditable");
+  }
 }
 
 let completeNum = 1;
@@ -113,6 +139,11 @@ function undoFn() {
   let checkBtns = document.querySelectorAll(".completed");
   checkBtns.forEach((btn) => {
     btn.addEventListener("click", addToComplete);
+  });
+
+  let editBtns = document.querySelectorAll(".edit");
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", editText);
   });
 
   parent.remove();
