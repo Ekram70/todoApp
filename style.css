@@ -23,7 +23,7 @@ body {
   background-color: #fff;
   border-radius: 10px;
   padding: 30px 25px;
-  max-width: 450px;
+  min-width: 450px;
 }
 
 .heading {
@@ -66,11 +66,13 @@ body {
   border: none;
 }
 
-.todo-list {
+.todo-list,
+.completed-list {
   list-style-type: none;
 }
 
-.todo-item {
+.todo-item,
+.completed-item {
   background-color: #c3e0e4;
   color: #111;
   position: relative;
@@ -82,7 +84,8 @@ body {
   border-radius: 5px;
 }
 
-.todo-item .number {
+.todo-item .number,
+.completed-item .number {
   background-color: #69bdc9;
   color: #fff;
   display: inline-block;
@@ -102,7 +105,8 @@ body {
 
 .edit,
 .completed,
-.undo {
+.undo,
+.deleted {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -115,24 +119,26 @@ body {
 
 .edit:hover,
 .undo:hover,
-.completed:hover {
+.completed:hover,
+.deleted:hover {
   color: #066acd;
 }
 
 .edit,
 .undo {
-  right: 30px;
+  right: 0px;
 }
 
-.completed {
+.completed,
+.deleted {
   right: 0;
 }
 
-.todo-completed {
+.completed-container {
   margin-top: 40px;
 }
 
-.todo-completed .heading {
+.completed-container .heading {
   color: #888;
 }
 
@@ -140,28 +146,33 @@ body {
   color: #04aa6d;
 }
 
-.todo-completed .completed:hover {
+.deleted:hover {
   color: #ff0036;
 }
 
-.todo-completed .todo-item {
+.completed-container .completed-item {
   text-decoration: line-through;
   background-color: #ddd;
   color: #b5a7a7;
 }
 
-.todo-completed .number {
+.completed-container .number {
   background-color: #888;
   border-color: #888;
 }
 
 .undo,
-.todo-completed .completed {
+.deleted {
   color: #3c3939;
 }
 
-.editable-text{
+.todo-text,
+.completed-text {
+  margin-right: 10px;
+  padding: 0px 8px;
+}
+
+.editable-text {
   color: #0d75ec;
-  padding: 8px;
-  border:1px solid #cbc4c4;
+  border: 1px solid #cbc4c4;
 }
