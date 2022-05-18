@@ -126,7 +126,7 @@ body {
 
 .edit,
 .undo {
-  right: 0px;
+  right: 30px;
 }
 
 .completed,
@@ -175,4 +175,8 @@ body {
 .editable-text {
   color: #0d75ec;
   border: 1px solid #cbc4c4;
+}
+
+.edit {
+  display: none;
 }
