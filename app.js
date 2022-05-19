@@ -10,6 +10,12 @@ let deleteBtns = completeList.querySelectorAll(".delete");
 
 addBtn.addEventListener("click", addToList);
 
+todoInput.addEventListener("keypress", (e) => {
+  if (e.keyCode === 13) {
+    addToList();
+  }
+});
+
 editBtns.forEach((btn) => {
   btn.addEventListener("click", editText);
 });
