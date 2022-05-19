@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
-@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
-
 * {
   margin: 0;
   padding: 0;
@@ -66,17 +64,17 @@ body {
   border: none;
 }
 
-.todo-list,
-.completed-list {
+.list {
   list-style-type: none;
+  counter-reset: items;
 }
 
-.todo-item,
-.completed-item {
+.item {
+  counter-increment: items;
   background-color: #c3e0e4;
   color: #111;
   position: relative;
-  padding: 10px 60px;
+  padding: 10px;
   margin-bottom: 5px;
   font-size: 15px;
   font-weight: 500;
@@ -84,44 +82,50 @@ body {
   border-radius: 5px;
 }
 
-.todo-item .number,
-.completed-item .number {
-  background-color: #69bdc9;
-  color: #fff;
-  display: inline-block;
-  width: 50px;
-  height: calc(100% + 3px);
-  padding: 12px;
-  margin-right: 5px;
+.item::before {
+  content: "0" counter(items);
   position: absolute;
-  left: -2px;
-  top: -2px;
-  font-family: "Share Tech Mono", monospace;
-  font-weight: bold;
-  text-align: center;
-  border: 2px solid #69bdc9;
-  border-radius: 2px;
+  left: 10px;
+}
+
+.item:nth-child(n + 10)::before {
+  content: counter(items);
 }
 
 .edit,
-.completed,
+.complete,
 .undo,
-.deleted {
+.delete {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #2e7681;
   width: 40px;
   line-height: 100%;
   padding: 12px;
   cursor: pointer;
 }
 
+.edit,
+.complete {
+  color: #2e7681;
+}
+
+.undo,
+.delete {
+  color: #a9a9a9;
+}
+
 .edit:hover,
-.undo:hover,
-.completed:hover,
-.deleted:hover {
+.complete:hover {
   color: #066acd;
+}
+
+.undo:hover {
+  color: #04aa6d;
+}
+
+.delete:hover {
+  color: #ff0036;
 }
 
 .edit,
@@ -129,8 +133,8 @@ body {
   right: 30px;
 }
 
-.completed,
-.deleted {
+.complete,
+.delete {
   right: 0;
 }
 
@@ -142,35 +146,16 @@ body {
   color: #888;
 }
 
-.undo:hover {
-  color: #04aa6d;
-}
-
-.deleted:hover {
-  color: #ff0036;
-}
-
-.completed-container .completed-item {
+.completed-container .item {
   text-decoration: line-through;
   background-color: #ddd;
   color: #b5a7a7;
 }
 
-.completed-container .number {
-  background-color: #888;
-  border-color: #888;
-}
-
-.undo,
-.deleted {
-  color: #3c3939;
-}
-
-.todo-text,
-.completed-text {
-  margin-right: 10px;
-  padding: 0px 8px;
-  width: 255px;
+.text {
+  margin: 0px 10px;
+  padding: 0px 20px;
+  width: 85%;
   word-break: break-word;
 }
 
@@ -182,9 +167,9 @@ body {
 .editable::after {
   content: "";
   position: absolute;
-  bottom: 10px;
-  left: 65px;
-  width: 255px;
+  bottom: 5px;
+  left: 35px;
+  width: 280px;
   height: 20px;
   border-bottom: 2px solid #fff;
 }

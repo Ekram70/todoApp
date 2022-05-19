@@ -3,10 +3,10 @@ const addBtn = document.getElementById("todo-btn");
 const todoList = document.getElementById("todo-list");
 const completeList = document.getElementById("completed-list");
 
-let editBtns = document.querySelectorAll(".edit");
-let checkBtns = document.querySelectorAll(".completed");
-let undoBtns = document.querySelectorAll(".undo");
-let deleteBtns = document.querySelectorAll(".deleted");
+let editBtns = todoList.querySelectorAll(".edit");
+let checkBtns = todoList.querySelectorAll(".complete");
+let undoBtns = completeList.querySelectorAll(".undo");
+let deleteBtns = completeList.querySelectorAll(".delete");
 
 addBtn.addEventListener("click", addToList);
 
@@ -26,45 +26,19 @@ deleteBtns.forEach((btn) => {
   btn.addEventListener("click", deleteFn);
 });
 
-let todoNum = 1;
 function addToList() {
-  if (todoList.lastElementChild) {
-    let num = todoList.lastElementChild.firstElementChild.innerText;
-    todoNum = 1 + Number(num);
-  }
-
   if (todoInput.value) {
-    todoList.innerHTML += `
-    <li class="todo-item">
-      <span class="number">${todoNum < 10 ? "0" + todoNum++ : todoNum++}</span>
-      <div class="todo-text">${todoInput.value}</div>
-      <span class="edit" title="edit">
-        <i class="fa-solid fa-pencil"></i>
-      </span>
-      <span class="completed" title="complete">
-        <i class="fa-solid fa-check"></i>
-      </span>
-    </li>
-    `;
+    createElem(todoList, todoInput.value, "edit", "complete", "pencil", "check");
+    todoInput.value = "";
+    bindBtns();
   }
 
-  todoInput.value = "";
-
-  let checkBtns = document.querySelectorAll(".completed");
-  checkBtns.forEach((btn) => {
-    btn.addEventListener("click", addToComplete);
-  });
-
-  let editBtns = document.querySelectorAll(".edit");
-  editBtns.forEach((btn) => {
-    btn.addEventListener("click", editText);
-  });
 }
 
 function editText() {
   let parent = this.parentElement;
   let icon = this.firstElementChild;
-  let textElem = parent.querySelector(".todo-text");
+  let textElem = parent.querySelector(".text");
   if (textElem.innerText) {
     icon.className == "fa-solid fa-pencil"
       ? (icon.className = "fa-solid fa-floppy-disk")
@@ -75,82 +49,81 @@ function editText() {
   }
 }
 
-let completeNum = 1;
 function addToComplete() {
-  if (completeList.lastElementChild) {
-    let num = completeList.lastElementChild.firstElementChild.innerText;
-    completeNum = 1 + Number(num);
-  }
-
   let parent = this.parentElement;
-  let text = parent.querySelector(".todo-text").innerText;
+  let text = parent.querySelector(".text").innerText;
 
-  completeList.innerHTML += `
-  <li class="completed-item">
-    <span class="number">
-    ${completeNum < 10 ? "0" + completeNum++ : completeNum++}
-    </span>
-    <div class="completed-text">${text}</div>
-    <span class="undo" title="undo">
-      <i class="fas fa-hand-point-up"></i>
-    </span>
-    <span class="deleted" title="delete">
-      <i class="fas fa-trash"></i>
-    </span>
-  </li>
-  `;
-
-  let undoBtns = document.querySelectorAll(".undo");
-  undoBtns.forEach((btn) => {
-    btn.addEventListener("click", undoFn);
-  });
-
-  let deleteBtns = document.querySelectorAll(".deleted");
-  deleteBtns.forEach((btn) => {
-    btn.addEventListener("click", deleteFn);
-  });
-
-  parent.remove();
+  if (text) {
+    createElem(completeList, text, "undo", "delete", "hand-point-up", "trash");
+    bindBtns();
+    parent.remove();
+  }
 }
 
-let undoNum = 1;
 function undoFn() {
-  if (todoList.lastElementChild) {
-    let num = todoList.lastElementChild.firstElementChild.innerText;
-    undoNum = 1 + Number(num);
-  }
-
   let parent = this.parentElement;
-  let text = parent.querySelector(".completed-text").innerText;
+  let text = parent.querySelector(".text").innerText;
 
-  todoList.innerHTML += `
-  <li class="todo-item">
-    <span class="number">${undoNum < 10 ? "0" + undoNum++ : undoNum++}</span>
-    <div class="todo-text">${text}</div>
-    <span class="edit" title="edit">
-      <i class="fa-solid fa-pencil"></i>
-    </span>
-    <span class="completed" title="complete">
-      <i class="fa-solid fa-check"></i>
-    </span>
-  </li>
-  `;
-
-  let checkBtns = document.querySelectorAll(".completed");
-  checkBtns.forEach((btn) => {
-    btn.addEventListener("click", addToComplete);
-  });
-
-  let editBtns = document.querySelectorAll(".edit");
-  editBtns.forEach((btn) => {
-    btn.addEventListener("click", editText);
-  });
+  createElem(todoList, text, "edit", "complete", "pencil", "check");
+  bindBtns();
 
   parent.remove();
 }
 
 function deleteFn() {
   let parent = this.parentElement;
-
   parent.remove();
+}
+
+function createElem(parent, text, btnOne, btnTwo, firstIcon, secondIcon) {
+  let li = document.createElement("li");
+  let div = document.createElement("div");
+
+  let spanOne = document.createElement("span");
+  let spanTwo = document.createElement("span");
+
+  let iconOne = document.createElement("i");
+  let iconTwo = document.createElement("i");
+
+  li.classList = "item";
+
+  div.classList = "text";
+  div.innerText = `${text}`;
+  li.appendChild(div);
+
+  spanOne.classList = `${btnOne}`;
+  spanOne.setAttribute("title", `${btnOne}`);
+  iconOne.classList = `fa-solid fa-${firstIcon}`;
+  spanOne.appendChild(iconOne);
+  li.appendChild(spanOne);
+
+  spanTwo.classList = `${btnTwo}`;
+  spanTwo.setAttribute("title", `${btnTwo}`);
+  iconTwo.classList = `fa-solid fa-${secondIcon}`;
+  spanTwo.appendChild(iconTwo);
+  li.appendChild(spanTwo);
+
+  parent.appendChild(li);
+}
+
+function bindBtns() {
+  let editBtns = todoList.querySelectorAll(".edit");
+  editBtns.forEach((btn) => {
+    btn.addEventListener("click", editText);
+  });
+
+  let checkBtns = todoList.querySelectorAll(".complete");
+  checkBtns.forEach((btn) => {
+    btn.addEventListener("click", addToComplete);
+  });
+
+  let undoBtns = completeList.querySelectorAll(".undo");
+  undoBtns.forEach((btn) => {
+    btn.addEventListener("click", undoFn);
+  });
+
+  let deleteBtns = completeList.querySelectorAll(".delete");
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener("click", deleteFn);
+  });
 }
